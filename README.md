@@ -551,7 +551,7 @@ Pre-register Keycloak Client in STIG-Manager
 
 
 ### Test with Evaluate-STIG
-Run Evaluate-STIG (Meet all pre-reqs such as imported DoD certs first), PowerShell 7.4.5 was used in this environment.
+Run Evaluate-STIG (Meet all pre-reqs such as imported DoD certs first), PowerShell 7.4.5 was used in this environment.  
 .\Evaluate-STIG.ps1 -ComputerName sometarget.fqdn -ScanType Unclassified -Output STIGManager -SMCollection "Test"
 
 Output in ES should end with something similiar, then go see the results in STIG-Manager!
