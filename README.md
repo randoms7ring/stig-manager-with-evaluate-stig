@@ -508,7 +508,7 @@ Keys
 
 
 ### Configure Evaluate-STIG
-Back to the FIPS iissue from the start of this guide, this is where it shows up and I do not know how to Force Keycloak to use a different algorithm for the RSA signature. Transfer the keystore.p12 file to a RHEL 8.10 host (or any host thats FIPS 140-2, as long as its not 140-3!) so we can extract the key
+Back to the FIPS issue from the start of this guide, this is where it shows up and I do not know how to force Keycloak to use a different algorithm for the RSA signature. Transfer the keystore.p12 file to a RHEL 8.10 host (or any host thats FIPS 140-2, as long as its not 140-3!) so we can extract the key
 
 What happens on RHEL9.4 in FIPS mode
 ```
