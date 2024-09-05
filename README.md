@@ -72,7 +72,7 @@ Make a generic CA, you will need to import the cert into trust stores of all cli
 openssl req -x509 -sha256 -days 3650 -nodes -newkey rsa:4096 -subj "/CN=ca.`hostname -d`/C=US/ST=VA/L=CITY/" -keyout /opt/ca/keys/rootCA.key -out /opt/ca/certs/rootCA.crt
 trust anchor --store /opt/ca/certs/rootCA.crt
 ```
-Again make sure import rootCA.crt into the, in Windows terms, Local Machine Trusted Root store, of any clients that need to access the web interface of STIG-Manager or that will be running Evaluate-STIG and need to send results to STIG-Manager.
+Again make sure to import rootCA.crt into the, in Windows terms, Local Machine Trusted Root store, of any clients that need to access the web interface of STIG-Manager or that will be running Evaluate-STIG and need to send results to STIG-Manager.
 
 Config files used with openssl, adjust to how many alt names/ip address you have, my test system is dual stack so IP1 = IPv6 address, IP2 = IPv4 address.
 
@@ -264,7 +264,7 @@ https-certificate-file=/opt/kc/conf/`hostname -f`.crt
 https-certificate-key-file=/opt/kc/conf/`hostname -f`.key
 hostname=`hostname -f`
 hostname-strict-backchannel=true
-https-key-store-password=keystorepassword
+https-key-store-password=passwordpassword
 log-level=INFO
 #Uncomment For Debugging
 #log-level=INFO,org.keycloak.common.crypto:TRACE,org.keycloak.crypto:TRACE
