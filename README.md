@@ -31,6 +31,8 @@ Files stored in ~/
 
 All Commands are ran in a root shell unless noted, you can run as a regular user with sudo if you enjoy typing out your password a lot, or add NOPASSWD temporarily to the sudoers file.
 
+If you do not have working DNS in your environment then you will need to edit host files and put appropiate entries in there, this guide uses Fully Qualified Domain Names (FQDN) and was setup/tested in an environment with working DNS.
+
 ## Install Dependencies
 ```
 dnf install -y mysql-server java-17-openjdk-headless nginx podman podman-docker unzip
@@ -126,7 +128,7 @@ openssl req -new -key /opt/ca/keys/`hostname -f`.key -out /opt/ca/keys/`hostname
 
 Sign the CSR, if you are using a company or gov CA, sign the CSR with that instead and skip this step.
 ```
-openssl x509 -req -in /opt/ca/keys/`hostname -f`.csr -CA /opt/ca/certs/rootCA.crt -CAkey /opt/ca/keys/rootCA.key -CACreateserial -out /opt/ca/certs/`hostname -f`.crt -days 365 -sha256 -extfile /opt/ca/cert.conf
+openssl x509 -req -in /opt/ca/keys/`hostname -f`.csr -CA /opt/ca/certs/rootCA.crt -CAkey /opt/ca/keys/rootCA.key -CAcreateserial -out /opt/ca/certs/`hostname -f`.crt -days 365 -sha256 -extfile /opt/ca/cert.conf
 ```
 Note that because there is no OCSP / CRL endpoint designated in the certificate (or you are in a disconnected environment with no network path to company/gov) if you use Edge and have it configured to the STIG you need to make an adjustment for #V-235747.  
     
@@ -338,17 +340,21 @@ Create a new realm, import this file rather then typing everything out according
 
 Change settings to the following in the STIG Manager realm.
 ```
-Realm Settings->General->Require SSL: All (External Requests also works)
-Realm Settings->Events, enable both user & admin events for a period consistent with your environment
+Realm Settings -> General -> Require SSL: All (External Requests also works)
+Realm Settings -> Events, enable both user & admin events for a period consistent with your environment
 ```
 
-x509 auth flow is configured by default in the imported realm, but keycloak errors out in this setup becuase of it, you cannot even click on it to view the settings. You cannot auth to stigman until this is fixed. The solution is to bind the default browser flow which will unbind the x509 one.
+x509 auth flow is configured by default in the imported realm, but keycloak errors out in this setup becuase of it, you cannot even click on it to view the settings. You cannot auth to stigman until this is fixed. The solution is to bind the default browser flow, which was not in use, and that will unbind the x509 one.
 ```
-Authentication->Browser->Action->Bind Flow
+Authentication -> Flows Tab -> (Click on) Browser -> Action (Top Right) -> Bind Flow
 ```
-If you require this (assume related to CAC auth), you'll have to figure this out, perhaps recreating it will work or keycloak needs some additional module installed first?
+If you require this (assume related to CAC auth), you'll have to figure this out, perhaps recreating it will work or keycloak needs some additional module installed first?  
+
+The final configuration should look like the below screenshot. If your setup already looks like this with x509 not in use, then there should be no need to change anything.
+![image](https://github.com/user-attachments/assets/e3eb1749-37eb-4552-b598-58903503e3a5)
+
   
-Create your initial admin user in the stigman realm that you will login to the web interface with, assign admin & user roles.
+Now create your initial admin user in the stigman realm that you will login to the web interface with and assign admin & user roles to that user.
 
 ## Podman Setup
 Copy rootCA in, must be world readable to work within the stig-manager container!
