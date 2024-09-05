@@ -277,7 +277,7 @@ chown -R svc-keycloak:svc-keycloak /opt/keycloak
 su - svc-keycloak
 ```
 
-Generate initial keystore, unsure if they is truely necessary, I think I had it running with it without it at some point but is in the Red Hat documentation.
+Generate initial keystore, unsure if they is truely necessary, I think I had it running with it without it at some point but this is in the Red Hat documentation.
 ```
 keytool -genkeypair -sigalg SHA512withRSA -keyalg RSA -storepass passwordpassword \
   -keystore /opt/kc/conf/server.keystore \
