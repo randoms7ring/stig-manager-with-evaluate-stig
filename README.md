@@ -31,7 +31,7 @@ Files stored in ~/
 
 All Commands are ran in a root shell unless noted, you can run as a regular user with sudo if you enjoy typing out your password a lot, or add NOPASSWD temporarily to the sudoers file.
 
-If you do not have working DNS in your environment then you will need to edit host files and put appropiate entries in there, this guide uses Fully Qualified Domain Names (FQDN) and was setup/tested in an environment with working DNS.
+If you do not have working DNS in your environment then you will need to edit host files and put appropriate entries in there, this guide uses Fully Qualified Domain Names (FQDN) and was setup/tested in an environment with working DNS.
 
 ## Install Dependencies
 ```
